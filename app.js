@@ -60,7 +60,7 @@ app.get('/logout', (req,res)=>{
 });
 
 
-app.get('/', /*protegerRota,*/ async (req, res) => {
+app.get('/', protegerRota, async (req, res) => {
 
     const mesAtual = new Date().toISOString().slice(0, 7);
 
