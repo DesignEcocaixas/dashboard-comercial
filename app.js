@@ -412,6 +412,6 @@ app.post('/funcionarios/:id/nome', (req, res) => {
 
 });
 
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+app.listen(3052, () => {
+    console.log('Servidor rodando na porta 3052');
 });
