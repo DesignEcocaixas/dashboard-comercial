@@ -21,18 +21,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-function protegerRota(req, res, next) {
-    if (!req.session.usuario) {
+function protegerRota(req, res, next){
+    if(!req.session.usuario){
         return res.redirect('/login');
     }
     next();
 }
 
-app.get('/login', (req, res) => {
+app.get('/login', (req,res)=>{
     res.send(loginView());
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', async (req,res)=>{
 
     const { token } = req.body;
 
@@ -41,8 +41,8 @@ app.post('/login', async (req, res) => {
         [token]
     );
 
-    if (rows.length === 0) {
-        return res.json({ sucesso: false });
+    if(rows.length === 0){
+        return res.json({ sucesso:false });
     }
 
     req.session.usuario = {
@@ -50,20 +50,17 @@ app.post('/login', async (req, res) => {
         nome: rows[0].nome
     };
 
-    res.json({ sucesso:true, redirect:'/dashboard' });
+    res.json({ sucesso:true });
 });
 
-app.get('/logout', (req, res) => {
-    req.session.destroy(() => {
+app.get('/logout', (req,res)=>{
+    req.session.destroy(()=>{
         res.redirect('/login');
     });
 });
 
-app.get('/', (req, res) => {
-    return res.redirect('/login');
-});
 
-app.get('/dashboard', protegerRota, async (req, res) => {
+app.get('/', protegerRota, async (req, res) => {
 
     const mesAtual = new Date().toISOString().slice(0, 7);
 
@@ -79,15 +76,14 @@ app.get('/dashboard', protegerRota, async (req, res) => {
     const metaAtual = metasMes[0] || null;
 
     const [vendas] = await db.query(`
-        SELECT * FROM vendas_detalhadas
-    `);
+    SELECT * FROM vendas_detalhadas
+`);
 
     res.send(
-        metasView(funcionarios, metaAtual, vendas, req.session.usuario)
-    );
+    metasView(funcionarios, metaAtual, vendas, req.session.usuario)
+);
 
 });
-
 
 app.post('/funcionarios', async (req, res) => {
 
@@ -401,7 +397,7 @@ app.post('/funcionarios/:id/nome', (req, res) => {
         [nome, req.params.id],
         (err) => {
 
-            if (err) {
+            if(err){
                 console.log(err);
                 return res.status(500).json({ erro: 'Erro ao atualizar' });
             }
@@ -412,6 +408,6 @@ app.post('/funcionarios/:id/nome', (req, res) => {
 
 });
 
-app.listen(3052, () => {
-    console.log('Servidor rodando na porta 3052');
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
 });
