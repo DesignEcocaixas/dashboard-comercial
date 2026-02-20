@@ -278,9 +278,25 @@ function metasView(funcionarios, metaAtual, vendas, usuarioLogado) {
 /* DARK MODE GLOBAL */
 /* ========================= */
 
+/* ========================= */
+/* STICKY FOOTER ESTRUTURAL */
+/* ========================= */
+
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #121212 !important;
     color: #e0e0e0 !important;
+     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container principal cresce */
+.main-content {
+    flex: 1;
 }
 
 .card {
@@ -545,11 +561,10 @@ p, span, div {
 
 </style>
 
-
-
 </head>
 
 <body class="bg-dark text-light">
+<div class="main-content">
 
 <div id="loadingScreen">
     <div class="loading-content text-center">
@@ -1854,6 +1869,15 @@ function mostrarLoading(){
 }
 
 </script>
+
+</div>
+
+<footer class="bg-dark text-light py-3 border-top border-secondary footer-fixo">
+  <div class="container text-center small text-secondary">
+    <span class="text-light fw-semibold">71dev</span> © 2026 —
+    Todos os direitos reservados
+  </div>
+</footer>
 
 </body>
 </html>
